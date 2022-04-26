@@ -55,9 +55,9 @@ Compared extracted motifs with greatest importance with transcription factor bin
 <img width="767" alt="table1" src="https://user-images.githubusercontent.com/83188410/165398110-0139fa65-72ab-45dc-a00d-439f845a44f9.png">
 
 ### Using DeepHTLV
-  ```
-      python modelCV.py 
-  ```
+```
+python modelCV.py 
+```
 ### Citation and contact
      Cite DeepHTLV. _________ <br>
      For any questions please contact ____.
