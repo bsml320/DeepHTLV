@@ -33,4 +33,8 @@ DeepHTLV was implemented in Python version 3.8. The following dependencies are r
   
   <br><br>
   
-  `bedtools random` can be used to generate random sequences. The default number of sequences is 1,000,000 with length of <i> 1 kbp <i/>. 
+  `bedtools random` can be used to generate random sequences. The default number of sequences is 1,000,000 with length of <i> 1 kbp </i>. Seed number was set at 1337. Once this was done, each positive VIS region was expanded by <b> 30 kbp </b> up and downstream to prevent any possible overlaps. This region of <b> 61 kbp </b> was considered a region of exclusion. Using `bedtools intersect -v`, we can find which random sequences do not overlap with the positive exclusion regions. We then removed any redundant sequences using <i> CD-HIT </i> with `cd-hit-est` for within datasets and `cd-hit-est-2d` for between datasets. The similarity threshold (c) was set to 0.9. We wanted to maintain the ratio of positive to negative samples at 1:10 and so the negative sequences were randomly sampled. The final data count was 32,078 positive VISs and 320,780 negative control sequences. <p>
+<br>
+    <b> Model Construction </b>
+    
+ 
