@@ -6,18 +6,31 @@ Human T-lymphotrophic virus 1 (HTLV-1) is the causative agent for adult T-cell l
 <p>
 <b> Installation </b> <br>
 Download DeepHTLV <br>
-```
-  git clone https://github.com/bsml320/DeepHTLV
-``` <br><br>
-DeepHTLV was implemented in Python version 3.8. The following dependencies are required: numpy, scipy, pandas, h5py, keras version 2.3.1, and tensorflow version 1.15. Install using the following commands <br><br>
-  ```
-  conda create -n DeepHTLV python=3.8
-  pip install pandas
-  pip install numpy
-  pip install scipy
-  pip install h5py
-  pip install keras==2.3.1
-  pip install tensorflow-gpu==1.15
-  ``` <br><br>
- <b> Data processing </b>
   
+```
+git clone https://github.com/bsml320/DeepHTLV
+``` 
+  
+  <br><br>
+DeepHTLV was implemented in Python version 3.8. The following dependencies are required: numpy, scipy, pandas, h5py, keras version 2.3.1, and tensorflow version 1.15. Install using the following commands <br><br>
+  
+  ```
+ conda create -n DeepHTLV python=3.8
+ pip install pandas
+ pip install numpy
+ pip install scipy
+ pip install h5py
+ pip install keras==2.3.1
+ pip install tensorflow-gpu==1.15
+  ``` 
+  
+  <br><br>
+ <b> Data processing </b>
+ DeepHTLV was trained and evaluated on our own largest, curated benchmark database of HTLV-1 VISs from the [Viral Integration Site Database (VISDB)] (https://bioinfo.uth.edu/VISDB/index.php/homepage). We retrieved 33,845 positive VIS samples. Each sample consisted of VISs compiled from experimental papers and other database sources. The sites were all indicated with a chromosome, denoted by <i> chr </i>, and an insertion site denoted by a base pair. This information was extracted and to capture surrounding genomic features, we expanded the insertion site by <i> 500bp </i> up and downstream to generate a VIS region of <i> 1kbp </i>. To generate the negative data, the package <i> bedtools </i> is required. You can install it with <br><br>
+  ```
+  pip install bedtools
+  ```
+  
+  <br><br>
+  
+  `bedtools random` can be used to generate random sequences. The default number of sequences is 1,000,000 with length of <i> 1 kbp <i/>. 
