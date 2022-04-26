@@ -60,3 +60,5 @@ Machine Learning <p>
       
   ![Figure 5](https://user-images.githubusercontent.com/83188410/165396375-611e3fce-86a2-4062-8ce7-742d80d21257.jpg)
 
+<b> TF associated with HTLV-1 VISs and associated diseases </b> <br>
+<img width="767" alt="table1" src="https://user-images.githubusercontent.com/83188410/165398110-0139fa65-72ab-45dc-a00d-439f845a44f9.png">
