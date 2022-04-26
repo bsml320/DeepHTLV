@@ -41,16 +41,22 @@ DeepHTLV was implemented in Python version 3.8. The following dependencies are r
       ![Figure 1](https://user-images.githubusercontent.com/83188410/165390366-24cc4aa7-fcec-409c-9452-bce2a401d04a.jpg)
 <br><br>
 
-      <b> Model Performance </b> <br>
-      
-      ![Figure 3 copy](https://user-images.githubusercontent.com/83188410/165392431-e5b046e1-6331-4a8a-86aa-a8b4ad2e55ca.jpg) 
-      <br> <br>
-      
-      <img width="536" alt="machinelearningAUROC" src="https://user-images.githubusercontent.com/83188410/165393167-c6dc89f9-6cdd-4103-8ee8-fe1ab28bb622.png">
+<b> Model Performance </b> <br>
+Model AUROC <p>
+![Figure 3 copy](https://user-images.githubusercontent.com/83188410/165392431-e5b046e1-6331-4a8a-86aa-a8b4ad2e55ca.jpg) 
+Machine Learning <p>
+<img width="536" alt="machinelearningAUROC" src="https://user-images.githubusercontent.com/83188410/165393167-c6dc89f9-6cdd-4103-8ee8-fe1ab28bb622.png">
+<br><br>
 
-      <b> Model Interpretability </b> <br>
+  <b> Motif Clustering </b> <br>
+  We extracted motifs from first convolutional layer. Clustering analysis. 
+  <p>
+    
+  ![Figure 4](https://user-images.githubusercontent.com/83188410/165395791-5901338b-d2ae-4297-ba6d-f30131167e93.jpg)
+    
+<br>
+<b> Transcription Factor Binding Profile Analysis </b> <br>
+    Compared extracted motifs with greatest importance with transcription factor binding profile (TFBP) database JASPAR2020. <p>
       
-      ![Figure 3 copy 2](https://user-images.githubusercontent.com/83188410/165392454-1e9b8f2e-76bb-48f7-b999-039f63ce3083.jpg)
+  ![Figure 5](https://user-images.githubusercontent.com/83188410/165396375-611e3fce-86a2-4062-8ce7-742d80d21257.jpg)
 
-
-      
