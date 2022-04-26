@@ -38,7 +38,7 @@ DeepHTLV was implemented in Python version 3.8. The following dependencies are r
 
 <b> Model Construction </b>
     DeepHTLV is a convolutional neural network (CNN) consisting of an input layer, a convolutional-pooling module, an attention mechanism, a dense layer, and an output layer. Primary sequences were one-hot encoded into a matrix where each base pair is represented by a binary vectory. A is represented with (1, 0, 0, 0), C (0, 1, 0,0), G (0, 0, 1, 0), and T (0,0,0,1). A convolutional layer was used to capture important sequence features with a specified kernel size and filter length. The activation function is a rectified linear unit (ReLU) where any values below 0 are converted into 0 and positive values stay the same. <i> <b> insert equation here </b></i> The convolutional layer fed into a max-pooling layer for dimensional reduction and noise reduction. The data was then fed into an attention layer. The attention mechanism highlights important genomic positions from the convolutional layer. When fed an input with b x W x h dimensions, it takes the b column and learns the important feature using a dense representation and softmax function. Once the important features are learned, it assigns a position weight matrix (PWM) for the given column. This is repeated for column b until all h dimensions are completed. The PWM information from the attention layer is then integrated with the information from the convolutional operation to find the actual genomic positions of these genomic regions. The final output layer uses a sigmoid or logistic regression activation function, which returns the VIS probability of a given genomic sample. <p>
-      ![Figure 1](https://user-images.githubusercontent.com/83188410/165390366-24cc4aa7-fcec-409c-9452-bce2a401d04a.jpg)
+![Figure 1](https://user-images.githubusercontent.com/83188410/165390366-24cc4aa7-fcec-409c-9452-bce2a401d04a.jpg)
 <br><br>
 
 <b> Model Performance </b> <br>
@@ -52,13 +52,22 @@ Machine Learning <p>
   We extracted motifs from first convolutional layer. Clustering analysis. 
   <p>
     
-  ![Figure 4](https://user-images.githubusercontent.com/83188410/165395791-5901338b-d2ae-4297-ba6d-f30131167e93.jpg)
+![Figure 4](https://user-images.githubusercontent.com/83188410/165395791-5901338b-d2ae-4297-ba6d-f30131167e93.jpg)
     
 <br>
 <b> Transcription Factor Binding Profile Analysis </b> <br>
     Compared extracted motifs with greatest importance with transcription factor binding profile (TFBP) database JASPAR2020. <p>
       
-  ![Figure 5](https://user-images.githubusercontent.com/83188410/165396375-611e3fce-86a2-4062-8ce7-742d80d21257.jpg)
+![Figure 5](https://user-images.githubusercontent.com/83188410/165396375-611e3fce-86a2-4062-8ce7-742d80d21257.jpg)
 
 <b> TF associated with HTLV-1 VISs and associated diseases </b> <br>
 <img width="767" alt="table1" src="https://user-images.githubusercontent.com/83188410/165398110-0139fa65-72ab-45dc-a00d-439f845a44f9.png">
+
+<b> Using DeepHTLV </b><br>
+  ```
+      python modelCV.py 
+  ```
+<br>
+<b> Citation and contact </b><br>
+     Cite DeepHTLV. _________ <br.
+     For any questions please contact ____.
