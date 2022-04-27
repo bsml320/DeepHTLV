@@ -24,7 +24,7 @@ DeepHTLV was implemented in Python version 3.8. The following dependencies are r
  pip install tensorflow-gpu==1.15
   ``` 
 ### Data processing
-DeepHTLV was trained and evaluated on our own largest, curated benchmark database of HTLV-1 VISs from the [Viral Integration Site Database (VISDB)] (https://bioinfo.uth.edu/VISDB/index.php/homepage). We retrieved 33,845 positive VIS samples. Each sample consisted of VISs compiled from experimental papers and other database sources. The sites were all indicated with a chromosome, denoted by <i> chr </i>, and an insertion site denoted by a base pair. This information was extracted and to capture surrounding genomic features, we expanded the insertion site by <i> 500bp </i> up and downstream to generate a VIS region of <i> 1kbp </i>. To generate the negative data, the package <i> bedtools </i> is required. You can install it with <p> 
+DeepHTLV was trained and evaluated on our own largest, curated benchmark database of HTLV-1 VISs from the [Viral Integration Site Database (VISDB)](https://bioinfo.uth.edu/VISDB/index.php/homepage). We retrieved 33,845 positive VIS samples. Each sample consisted of VISs compiled from experimental papers and other database sources. The sites were all indicated with a chromosome, denoted by <i> chr </i>, and an insertion site denoted by a base pair. This information was extracted and to capture surrounding genomic features, we expanded the insertion site by <i> 500bp </i> up and downstream to generate a VIS region of <i> 1kbp </i>. To generate the negative data, the package <i> bedtools </i> is required. You can install it with <p> 
   ```
   pip install bedtools
   ```  
@@ -60,4 +60,4 @@ python modelCV.py
 ```
 ### Citation and contact
      Cite DeepHTLV.  <br>
-     For any questions please contact Haodong Xu (haodong.xu@uth.tmc.edu) or Johnathan Jia (jdjia93@gmail.com)
+     For any questions please contact [Haodong Xu](haodong.xu@uth.tmc.edu) or [Johnathan Jia](jdjia93@gmail.com)
