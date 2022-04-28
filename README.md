@@ -56,7 +56,7 @@ To decode and understand more about the <i>cis</i>-regulatory factors about HTLV
 
 ### Using DeepHTLV
 ```
-python modelCV.py 
+python run_deephtlv.py 
 ```
 ### Citation and contact
 Cite DeepHTLV.  <br>
