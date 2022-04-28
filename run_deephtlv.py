@@ -1,4 +1,5 @@
 # %%
+from multiprocessing.managers import ValueProxy
 import numpy as np
 import tensorflow as tf
 import random as python_random
@@ -158,18 +159,21 @@ def model():
 # %%
 
 def run_model():
-    x_visdb = np.load('data/valx_visdb_fulldata_booleanformat.npy')
-    y_visdb = np.load('data/valy_visdb_fulldata_booleanformat.npy')
+
+    x_visdb = np.load('data/x_VISDB_fulldata.npy')
+    y_visdb = np.load('data/y_VISDB_fulldata.npy')
+
+	trainx, valx, trainy, valy = train_test_split(x_visdb, y_visdb, test_size = 0.1, random_state = 42)
 
     model = model()
     model.load_weights('model/Final_model.h5')
 
     print('testing')
     
-    y_pred = model.predict(x_visdb, verbose = 1)
+    y_pred = model.predict(valx, verbose = 1)
 
-    auroc = roc_auc_score(y_visdb, y_pred)
-    aupr = average_precision_score(y_visdb, y_pred)
+    auroc = roc_auc_score(valx, y_pred)
+    aupr = average_precision_score(valy, y_pred)
 
     print('auroc = ', auroc)
     print('aupr = ', aupr)
