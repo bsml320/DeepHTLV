@@ -37,7 +37,7 @@ DeepHTLV is a convolutional neural network (CNN) consisting of an input layer, a
 ### Model performance
 Model performance was evaluated with two measures: area under the receiver operating characteristic curve (AUROC) and area under the precision recall curve (AUPRC) values. The AUROC measures the trade-off between the true positive rate (TPR) and the false positive rate (FPR) and ranges from 0.5 to 1, where 0.5 is no better than random chance. Due to the imbalanced nature of our data, we use the AUPR to measure the trade-off between the false positives and false negatives. To improve model performance, we implemented a balanced training strategy. The negative data is sampled without replacement at a 1:1 ratio with the positive data and the model is trained. This step is repeated until all of the negative data has been used in the training process, resulting in 10 different DeepHTLV models. The final output and result are the average of the group. We also compared DeepHTLV with 4 traditional machine learning models: Random Forest (RF), Decision Tree (DT), Logistic Regression (LR), and K-Nearest Neighbors (KNN) using the same training strategy. DeepHTLV is superior to these methods with an AUROC improvement of 2-23% with an average AUROC of 0.75 and average AUPR of 0.73. <p>
 
-![Figure 3 copy](https://user-images.githubusercontent.com/83188410/165392431-e5b046e1-6331-4a8a-86aa-a8b4ad2e55ca.jpg)
+![Figure 3 copy](https://github.com/bsml320/DeepHTLV/blob/main/data/Figure%203.jpg)
   
 <!-- Traditional machine learning methods <p> -->
 <!--<img width="536" alt="machinelearningAUROC" src="https://user-images.githubusercontent.com/83188410/165393167-c6dc89f9-6cdd-4103-8ee8-fe1ab28bb622.png">-->
