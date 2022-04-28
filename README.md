@@ -52,7 +52,7 @@ To decode and understand more about the <i>cis</i>-regulatory factors about HTLV
       
 ![Figure 5](https://user-images.githubusercontent.com/83188410/165396375-611e3fce-86a2-4062-8ce7-742d80d21257.jpg)
 
-<img width="767" alt="table1" src="https://user-images.githubusercontent.com/83188410/165398110-0139fa65-72ab-45dc-a00d-439f845a44f9.png">
+<img width="767" alt="table1" src="https://github.com/bsml320/DeepHTLV/blob/main/data/165822971-5fe63873-e098-446f-8e99-2f9cf96abfe1.png">
 
 ### Using DeepHTLV
 ```
