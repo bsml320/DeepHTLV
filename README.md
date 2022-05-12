@@ -15,20 +15,26 @@ git clone https://github.com/bsml320/DeepHTLV
 DeepHTLV was implemented in Python version 3.8. The following dependencies are required: numpy, scipy, pandas, h5py, keras version 2.3.1, and tensorflow version 1.15. Install using the following commands <p>
   
   ```
- conda create -n DeepHTLV python=3.8
+ conda create -n deephtlv python=3.5
  pip install pandas
  pip install numpy
  pip install scipy
  pip install h5py
- pip install keras==2.3.1
- pip install tensorflow-gpu==1.15
+ pip install keras==2.3.0
+ pip install tensorflow-gpu==1.1
   ``` 
 ### Data processing
 DeepHTLV was trained and evaluated on our own largest, curated benchmark database of HTLV-1 VISs from the [Viral Integration Site Database (VISDB)](https://bioinfo.uth.edu/VISDB/index.php/homepage). We retrieved 33,845 positive VIS samples. Each sample consisted of VISs compiled from experimental papers and other database sources. The sites were all indicated with a chromosome, denoted by <b>chr</b>, and an insertion site denoted by a base pair. This information was extracted and to capture surrounding genomic features, we expanded the insertion site by <b>500 bp</b> up and downstream to generate a VIS region of <b>1000 bp</b>. To generate the negative data, the package <i>bedtools</i> is required. You can install it with <p> 
   ```
   pip install bedtools
   ```  
-`bedtools random` can be used to generate random sequences. The default number of sequences is 1,000,000 with length of <b>1 kbp</b>. Seed number was set at 1337. Once this was done, each positive VIS region was expanded by <b>30 kbp</b> up and downstream to prevent any possible overlaps. This region of <b>61 kbp</b> was considered a region of exclusion. Using `bedtools intersect -v`, we can find which random sequences do not overlap with the positive exclusion regions. We then removed any redundant sequences using <i> CD-HIT </i> with `cd-hit-est` for within datasets and `cd-hit-est-2d` for between datasets. The similarity threshold (c) was set to 0.9. We wanted to maintain the ratio of positive to negative samples at 1:10 and so the negative sequences were randomly sampled. The final data count was 31,878 positive VISs and 318,780 negative control sequences. The data was split with 9:1 train to test data using `train_test_split` from the <i>scikit-learn</i> package. <p>
+After installing bedtools, you will need to find and download a reference genome. We used reference genome hg19 from the UCSC genome browser. You can download and install the it with the following: <p>
+  ```
+  wget http://hgdownload.cse.ucsc.edu/goldenpath/hg19/bigZips/hg19.fa.gz
+  gunzip hg19.fa.gz
+  ```
+Please make sure you are using the correct reference genome and specify the path in `data_htlv.py` in the `bed_to_fasta` function, otherwise you will encounter an error <p>
+ `bedtools random` can be used to generate random sequences. The default number of sequences is 1,000,000 with length of <b>1 kbp</b>. Seed number was set at 1337. Once this was done, each positive VIS region was expanded by <b>30 kbp</b> up and downstream to prevent any possible overlaps. This region of <b>61 kbp</b> was considered a region of exclusion. Using `bedtools intersect -v`, we can find which random sequences do not overlap with the positive exclusion regions. We then removed any redundant sequences using <i> CD-HIT </i> with `cd-hit-est` for within datasets and `cd-hit-est-2d` for between datasets. The similarity threshold (c) was set to 0.9. We wanted to maintain the ratio of positive to negative samples at 1:10 and so the negative sequences were randomly sampled. The final data count was 31,878 positive VISs and 318,780 negative control sequences. The data was split with 9:1 train to test data using `train_test_split` from the <i>scikit-learn</i> package. <p>
 
 ### Model construction
 DeepHTLV is a convolutional neural network (CNN) consisting of an input layer, a convolutional-pooling module, an attention mechanism, a dense layer, and an output layer. Primary sequences were one-hot encoded into a matrix where each base pair is represented by a binary vectory. A is represented with (1, 0, 0, 0), C (0, 1, 0,0), G (0, 0, 1, 0), and T (0,0,0,1). A convolutional layer was used to capture important sequence features with a specified kernel size and filter length. The activation function is a rectified linear unit (ReLU). The convolutional layer fed into a max-pooling layer for dimensional reduction and noise reduction. The data was then fed into an attention layer. The attention mechanism highlights important genomic positions from the convolutional layer. When fed an input with <i>b x W x h</i> dimensions, it takes the b column and learns the important feature using a dense representation and softmax function. Once the important features are learned, it assigns a position weight matrix (PWM) for the given column. This is repeated for column <i>b</i> for <i>h</i> times until completion. The PWM information from the attention layer is then integrated with the information from the convolutional operation to find the actual genomic positions of these genomic regions. The final output layer uses a sigmoid or logistic regression activation function, which returns the VIS probability of a given genomic sample. Parameter tuning was performed using <i> keras-tuner </i> using the Hyperband method. <p>
