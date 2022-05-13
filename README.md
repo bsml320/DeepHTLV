@@ -12,21 +12,26 @@ git clone https://github.com/bsml320/DeepHTLV
 ``` 
   
   <br>
-DeepHTLV was implemented in Python version 3.8. The following dependencies are required: numpy, scipy, pandas, h5py, keras version 2.3.1, and tensorflow version 1.15. Install using the following commands <p>
+DeepHTLV was implemented in Python version 3.6. The following dependencies are required: numpy, scipy, pandas, h5py, keras version 2.3.1, and tensorflow version 1.15. Install using the following commands <p>
   
   ```
- conda create -n DeepHTLV python=3.8
+ conda create -n DeepHTLV python=3.6
  pip install pandas
  pip install numpy
  pip install scipy
  pip install h5py
  pip install keras==2.3.1
- pip install tensorflow-gpu==1.15
+ pip install tensorflow==1.15.0
+ pip install tensorflow-gpu==1.1.0
   ``` 
 ### Data processing
 DeepHTLV was trained and evaluated on our own largest, curated benchmark database of HTLV-1 VISs from the [Viral Integration Site Database (VISDB)](https://bioinfo.uth.edu/VISDB/index.php/homepage). We retrieved 33,845 positive VIS samples. Each sample consisted of VISs compiled from experimental papers and other database sources. The sites were all indicated with a chromosome, denoted by <b>chr</b>, and an insertion site denoted by a base pair. This information was extracted and to capture surrounding genomic features, we expanded the insertion site by <b>500 bp</b> up and downstream to generate a VIS region of <b>1000 bp</b>. To generate the negative data, the package <i>bedtools</i> is required. You can install it with <p> 
   ```
   pip install bedtools
+  ##download reference file and unzip from UCSC Genome Browser
+  #keep this file in the ref folder
+  wget http://hgdownload.cse.ucsc.edu/goldenpath/hg19/bigZips/hg19.fa.gz
+  gunzip hg19.fa.gz
   ```  
 `bedtools random` can be used to generate random sequences. The default number of sequences is 1,000,000 with length of <b>1 kbp</b>. Seed number was set at 1337. Once this was done, each positive VIS region was expanded by <b>30 kbp</b> up and downstream to prevent any possible overlaps. This region of <b>61 kbp</b> was considered a region of exclusion. Using `bedtools intersect -v`, we can find which random sequences do not overlap with the positive exclusion regions. We then removed any redundant sequences using <i> CD-HIT </i> with `cd-hit-est` for within datasets and `cd-hit-est-2d` for between datasets. The similarity threshold (c) was set to 0.9. We wanted to maintain the ratio of positive to negative samples at 1:10 and so the negative sequences were randomly sampled. The final data count was 31,878 positive VISs and 318,780 negative control sequences. The data was split with 9:1 train to test data using `train_test_split` from the <i>scikit-learn</i> package. <p>
 
@@ -58,7 +63,7 @@ To decode and understand more about the <i>cis</i>-regulatory factors about HTLV
 
 ### Using DeepHTLV
 ```
-python run_deephtlv.py 
+python DeepHTLV.py 
 ```
 ### Citation and contact
 Cite DeepHTLV.  <br>
