@@ -29,7 +29,7 @@ DeepHTLV was trained and evaluated on our own largest, curated benchmark databas
   ```
   pip install bedtools
   ##download reference file and unzip from UCSC Genome Browser
-  #keep this file in the ref folder
+  #keep this file in the ref folder and specify the path in data_htlv1.py
   wget http://hgdownload.cse.ucsc.edu/goldenpath/hg19/bigZips/hg19.fa.gz
   gunzip hg19.fa.gz
   ```  
@@ -59,7 +59,8 @@ To decode and understand more about the <i>cis</i>-regulatory factors about HTLV
 ![Figure 5](https://user-images.githubusercontent.com/83188410/165396375-611e3fce-86a2-4062-8ce7-742d80d21257.jpg)
 
 <!--<img width="767" alt="table1" src="https://user-images.githubusercontent.com/83188410/165398110-0139fa65-72ab-45dc-a00d-439f845a44f9.png">-->
-<img width="747" alt="table1" src="https://user-images.githubusercontent.com/83188410/165823963-8518b16b-94ab-4dd5-a7df-a7a4cbd87deb.png">
+<!--img width="747" alt="table1" src="https://user-images.githubusercontent.com/83188410/165823963-8518b16b-94ab-4dd5-a7df-a7a4cbd87deb.png">-->
+![table1_corrected](https://user-images.githubusercontent.com/83188410/168645905-1a72d902-7df8-47e6-8d84-4f36676218a8.png)
 
 ### Using DeepHTLV
 ```
