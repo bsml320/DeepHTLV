@@ -28,11 +28,16 @@ DeepHTLV was implemented in Python version 3.6. The following dependencies are r
 DeepHTLV was trained and evaluated on our own largest, curated benchmark database of HTLV-1 VISs from the [Viral Integration Site Database (VISDB)](https://bioinfo.uth.edu/VISDB/index.php/homepage). We retrieved 33,845 positive VIS samples. Each sample consisted of VISs compiled from experimental papers and other database sources. The sites were all indicated with a chromosome, denoted by <b>chr</b>, and an insertion site denoted by a base pair. This information was extracted and to capture surrounding genomic features, we expanded the insertion site by <b>500 bp</b> up and downstream to generate a VIS region of <b>1000 bp</b>. To generate the negative data, the package <i>bedtools</i> is required. You can install it with <p> 
   ```
   pip install bedtools
+  ```
+To convert the data files into a usable form for the model, we have to change the BED files into FASTA files. The FASTA files will then be converted into numpy files. You can either use the python script or the Jupyter notebook. To convert BED files into FASTA files, we need a reference genome. We can download hg19 from the UCSC Genome Browser with the following command.
+  ```
   ##download reference file and unzip from UCSC Genome Browser
-  #keep this file in the ref folder and specify the path in data_htlv1.py
   wget http://hgdownload.cse.ucsc.edu/goldenpath/hg19/bigZips/hg19.fa.gz
+  #unzip the file into FASTA format
   gunzip hg19.fa.gz
   ```  
+Once the reference genome has been downloaded, you can run python script with `python data_htlv1_.py` or run the Jupyter notebook `data_htlv1.ipynb` to convert the BED files into a usable numpy file for DeepHTLV. <p>
+
 `bedtools random` can be used to generate random sequences. The default number of sequences is 1,000,000 with length of <b>1 kbp</b>. Seed number was set at 1337. Once this was done, each positive VIS region was expanded by <b>30 kbp</b> up and downstream to prevent any possible overlaps. This region of <b>61 kbp</b> was considered a region of exclusion. Using `bedtools intersect -v`, we can find which random sequences do not overlap with the positive exclusion regions. We then removed any redundant sequences using <i> CD-HIT </i> with `cd-hit-est` for within datasets and `cd-hit-est-2d` for between datasets. The similarity threshold (c) was set to 0.9. We wanted to maintain the ratio of positive to negative samples at 1:10 and so the negative sequences were randomly sampled. The final data count was 31,878 positive VISs and 318,780 negative control sequences. The data was split with 9:1 train to test data using `train_test_split` from the <i>scikit-learn</i> package. <p>
 
 ### Model construction
