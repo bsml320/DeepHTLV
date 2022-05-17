@@ -15,7 +15,7 @@ import numbers
 from collections import Counter
 from warnings import warn
 from abc import ABCMeta, abstractmethod
-
+from sklearn.model_selection import train_test_split
 
 # In[32]:
 
@@ -169,7 +169,7 @@ class attention_flatten(Layer): # Based on the source code of Keras flatten
 # In[41]:
 
 
-def model():
+def build_model():
 	print('building model')
 
 	seq_input_shape = (1000,4)
@@ -219,7 +219,7 @@ def run_model():
 
     trainx, valx, trainy, valy = train_test_split(x_visdb, y_visdb, test_size = 0.1, random_state = 42)
 
-    model = model()
+    model = build_model()
     model.load_weights('model/Final_model.h5')
 
     print('testing')
@@ -237,7 +237,7 @@ def run_model():
 
 
 if __name__ == '__main__':
-	model()
+	build_model()
 	run_model()
 
 
