@@ -191,8 +191,8 @@ def build_model():
 
 def run_model():
 
-    x_visdb = np.load('/Users/johnathanjia/Documents/Github/DeepHTLV/DeepHTLV/data/x_VISDB_fulldata.npy')
-    y_visdb = np.load('/Users/johnathanjia/Documents/Github/DeepHTLV/DeepHTLV/data/y_VISDB_fulldata.npy')
+    x_visdb = np.load('data/x_VISDB_fulldata.npy')
+    y_visdb = np.load('data/y_VISDB_fulldata.npy')
 
     trainx, valx, trainy, valy = train_test_split(x_visdb, y_visdb, test_size = 0.1, random_state = 42)
 

@@ -40,7 +40,7 @@ def seq_matrix(seq_list, dim):
 def bed_to_fasta():
 	beds = ['data/VIS_pos_final.bed','data/VIS_neg_final.bed']
 	for bed in beds:
-		os.system("bedtools getfasta -fi ~/ref/hg19.fa -bed " + bed + " -fo " + bed + ".fasta")
+		os.system("bedtools getfasta -fi ../ref/hg19.fa -bed " + bed + " -fo " + bed + ".fasta")
 
 
 # In[ ]:
