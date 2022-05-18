@@ -1,8 +1,5 @@
 #!/usr/bin/env python
-# coding: utf-8
-
-# In[31]:
-
+#DeepHTLV.py
 
 from __future__ import print_function, division
 import numpy as np
@@ -16,15 +13,9 @@ from collections import Counter
 from warnings import warn
 from abc import ABCMeta, abstractmethod
 from sklearn.model_selection import train_test_split
-
-# In[32]:
-
+from sklearn.metrics import roc_auc_score, average_precision_score
 
 import tensorflow as tf
-
-
-# In[33]:
-
 
 # The below is necessary for starting Numpy generated random numbers
 # in a well-defined initial state.
@@ -42,14 +33,7 @@ np.random.seed(1337)
 #older version of tensorflow
 tf.set_random_seed(1337)
 
-
-# In[34]:
-
-
 import os
-
-
-# In[35]:
 
 
 # gpus = tf.config.experimental.list_physical_devices(device_type='GPU')
@@ -57,8 +41,6 @@ import os
 #     tf.config.experimental.set_memory_growth(gpu, True)
 os.environ['CUDA_VISIBLE_DEVICES'] = "2,3,4"
 
-
-# In[36]:
 
 
 from keras.optimizers import RMSprop, SGD
@@ -82,8 +64,6 @@ from keras import activations, initializers, regularizers, constraints
 from keras.engine import InputSpec
 from keras.layers import concatenate
 
-
-# In[37]:
 
 
 # %%
@@ -166,7 +146,6 @@ class attention_flatten(Layer): # Based on the source code of Keras flatten
 		return K.batch_flatten(x)
 
 
-# In[41]:
 
 
 def build_model():
@@ -209,13 +188,11 @@ def build_model():
 	return model
 
 
-# In[42]:
-
 
 def run_model():
 
-    x_visdb = np.load('data/x_VISDB_fulldata.npy')
-    y_visdb = np.load('data/y_VISDB_fulldata.npy')
+    x_visdb = np.load('/Users/johnathanjia/Documents/Github/DeepHTLV/DeepHTLV/data/x_VISDB_fulldata.npy')
+    y_visdb = np.load('/Users/johnathanjia/Documents/Github/DeepHTLV/DeepHTLV/data/y_VISDB_fulldata.npy')
 
     trainx, valx, trainy, valy = train_test_split(x_visdb, y_visdb, test_size = 0.1, random_state = 42)
 
@@ -226,23 +203,20 @@ def run_model():
     
     y_pred = model.predict(valx, verbose = 1)
 
-    auroc = roc_auc_score(valx, y_pred)
+    auroc = roc_auc_score(valy, y_pred)
     aupr = average_precision_score(valy, y_pred)
+    
+    np.save('data/y_pred.npy', y_pred)
+    np.save('data/valy.npy', valy)
 
     print('auroc = ', auroc)
     print('aupr = ', aupr)
 
 
-# In[43]:
-
 
 if __name__ == '__main__':
 	build_model()
 	run_model()
-
-
-# In[ ]:
-
 
 
 
