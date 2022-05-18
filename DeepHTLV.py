@@ -16,7 +16,11 @@ from collections import Counter
 from warnings import warn
 from abc import ABCMeta, abstractmethod
 <<<<<<< HEAD:DeepHTLV.py
+<<<<<<< HEAD:DeepHTLV.py
 
+=======
+from sklearn.model_selection import train_test_split
+>>>>>>> 0ec0b4ef2a768285d6104142ffc71b8572fe264a:run_deephtlv.py
 =======
 from sklearn.model_selection import train_test_split
 >>>>>>> 0ec0b4ef2a768285d6104142ffc71b8572fe264a:run_deephtlv.py
@@ -174,7 +178,11 @@ class attention_flatten(Layer): # Based on the source code of Keras flatten
 
 
 <<<<<<< HEAD:DeepHTLV.py
+<<<<<<< HEAD:DeepHTLV.py
 def model():
+=======
+def build_model():
+>>>>>>> 0ec0b4ef2a768285d6104142ffc71b8572fe264a:run_deephtlv.py
 =======
 def build_model():
 >>>>>>> 0ec0b4ef2a768285d6104142ffc71b8572fe264a:run_deephtlv.py
