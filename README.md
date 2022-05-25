@@ -22,7 +22,7 @@ DeepHTLV was implemented in Python version 3.6. The following dependencies are r
  pip install h5py
  pip install keras==2.3.1
  pip install tensorflow==1.15.0
- pip install tensorflow-gpu==1.1.0
+ pip install tensorflow-gpu==1.15.0
   ``` 
 ### Data processing
 DeepHTLV was trained and evaluated on our own largest, curated benchmark database of HTLV-1 VISs from the [Viral Integration Site Database (VISDB)](https://bioinfo.uth.edu/VISDB/index.php/homepage). We retrieved 33,845 positive VIS samples. Each sample consisted of VISs compiled from experimental papers and other database sources. The sites were all indicated with a chromosome, denoted by <b>chr</b>, and an insertion site denoted by a base pair. This information was extracted and to capture surrounding genomic features, we expanded the insertion site by <b>500 bp</b> up and downstream to generate a VIS region of <b>1000 bp</b>. To generate the negative data, the package <i>bedtools</i> is required. You can install it with <p> 
