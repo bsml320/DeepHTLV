@@ -66,7 +66,8 @@ To decode and understand more about the <i>cis</i>-regulatory factors about HTLV
 
 <!--<img width="767" alt="table1" src="https://user-images.githubusercontent.com/83188410/165398110-0139fa65-72ab-45dc-a00d-439f845a44f9.png">-->
 <!--img width="747" alt="table1" src="https://user-images.githubusercontent.com/83188410/165823963-8518b16b-94ab-4dd5-a7df-a7a4cbd87deb.png">-->
-![Table1_correct](https://user-images.githubusercontent.com/83188410/169357824-fc29464f-241b-4d1d-86c1-147ed923cb61.png)
+<img width="482" alt="Table1" src="https://user-images.githubusercontent.com/83188410/172475647-01979262-98bc-4fe1-bb05-4b23f8c42260.png">
+
 
   
 ### Using DeepHTLV
