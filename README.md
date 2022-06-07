@@ -12,7 +12,7 @@ git clone https://github.com/bsml320/DeepHTLV
 ``` 
   
   <br>
-DeepHTLV was implemented in Python version 3.6. The following dependencies are required: numpy, scipy, pandas, h5py, keras version 2.3.1, and tensorflow version 1.15. Install using the following commands <p>
+DeepHTLV was implemented in Python version 3.6. The following dependencies are required: numpy, scipy, pandas, h5py, scikit-learn, keras version 2.3.1, and tensorflow version 1.15. Install using the following commands <p>
   
   ```
  conda create -n DeepHTLV python=3.6
@@ -20,6 +20,7 @@ DeepHTLV was implemented in Python version 3.6. The following dependencies are r
  pip install numpy
  pip install scipy
  pip install h5py
+ pip install scikit-learn
  pip install keras==2.3.1
  pip install tensorflow==1.15.0
  pip install tensorflow-gpu==1.15.0
@@ -30,14 +31,14 @@ DeepHTLV was trained and evaluated on our own largest, curated benchmark databas
   ```
   pip install bedtools
   ```
-To convert the data files into a usable form for the model, we have to change the BED files into FASTA files. The FASTA files will then be converted into numpy files. You can either use the python script or the Jupyter notebook. To convert BED files into FASTA files, we need a reference genome. We can download hg19 from the UCSC Genome Browser with the following command.
+To convert the data files into a usable form for the model, we have to change the BED files into FASTA files. The FASTA files will then be converted into numpy files. You can either use the python script `data_htlv1.py` or the Jupyter notebook `data_htlv1.ipynb`. To convert BED files into FASTA files, we need a reference genome. We can download hg19 from the UCSC Genome Browser with the following command.
   ```
   ##download reference file and unzip from UCSC Genome Browser
   wget http://hgdownload.cse.ucsc.edu/goldenpath/hg19/bigZips/hg19.fa.gz
   #unzip the file into FASTA format
   gunzip hg19.fa.gz
   ```  
-Once the reference genome has been downloaded, you can run python script with `python data_htlv1_.py` or run the Jupyter notebook `data_htlv1.ipynb` to convert the BED files into a usable numpy file for DeepHTLV. <p>
+Once the reference genome has been downloaded, you can run python script with `python data_htlv1_.py` or run the Jupyter notebook `data_htlv1.ipynb` to convert the BED files into a usable numpy file for DeepHTLV. <b> Please make sure you have the correct path to the reference genome in the scripts. </b><p>
 
 `bedtools random` can be used to generate random sequences. The default number of sequences is 1,000,000 with length of <b>1 kbp</b>. Seed number was set at 1337. Once this was done, each positive VIS region was expanded by <b>30 kbp</b> up and downstream to prevent any possible overlaps. This region of <b>61 kbp</b> was considered a region of exclusion. Using `bedtools intersect -v`, we can find which random sequences do not overlap with the positive exclusion regions. We then removed any redundant sequences using <i> CD-HIT </i> with `cd-hit-est` for within datasets and `cd-hit-est-2d` for between datasets. The similarity threshold (c) was set to 0.9. We wanted to maintain the ratio of positive to negative samples at 1:10 and so the negative sequences were randomly sampled. The final data count was 31,878 positive VISs and 318,780 negative control sequences. The data was split with 9:1 train to test data using `train_test_split` from the <i>scikit-learn</i> package. <p>
 
