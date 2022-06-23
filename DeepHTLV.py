@@ -1,21 +1,60 @@
-# %%
-from multiprocessing.managers import ValueProxy
+from __future__ import print_function, division
 import numpy as np
+import h5py
+import scipy.io
+import random
+import sys,os
+import itertools
+import numbers
+from collections import Counter
+from warnings import warn
+from abc import ABCMeta, abstractmethod
+from sklearn.model_selection import train_test_split, StratifiedKFold
+from sklearn.metrics import roc_auc_score, average_precision_score
+from sklearn.utils import shuffle
+import matplotlib.pyplot
+
 import tensorflow as tf
-import random as python_random
-from sklearn.model_selection import train_test_split
-from sklearn.model_selection import StratifiedKFold
-from sklearn.utils import resample, shuffle
+
+# The below is necessary for starting Numpy generated random numbers
+# in a well-defined initial state.
+np.random.seed(1337)
+
+# The below is necessary for starting core Python generated random numbers
+# in a well-defined state.
+#python_random.seed(1337)
+
+# The below set_seed() will make random number generation
+# in the TensorFlow backend have a well-defined initial state.
+# For further details, see:
+# https://www.tensorflow.org/api_docs/python/tf/random/set_seed
+#tf.random.set_seed(1337)
+#older version of tensorflow
+tf.set_random_seed(1337)
+
+
 import os
-import keras
+
+num_threads = 4
+# Maximum number of threads to use for OpenMP parallel regions.
+os.environ["OMP_NUM_THREADS"] = "4"
+# Without setting below 2 environment variables, it didn't work for me. Thanks to @cjw85 
+os.environ["TF_NUM_INTRAOP_THREADS"] = "4"
+os.environ["TF_NUM_INTEROP_THREADS"] = "4"
+
+tf.config.threading.set_inter_op_parallelism_threads(
+    num_threads
+)
+tf.config.threading.set_intra_op_parallelism_threads(
+    num_threads
+)
+tf.config.set_soft_device_placement(True)
+
 # gpus = tf.config.experimental.list_physical_devices(device_type='GPU')
 # for gpu in gpus:
 #     tf.config.experimental.set_memory_growth(gpu, True)
 os.environ['CUDA_VISIBLE_DEVICES'] = "2,3,4"
-np.random.seed(1337)
-python_random.seed(1337)
 
-# %%
 from keras.optimizers import RMSprop, SGD
 from keras.models import Sequential, model_from_yaml
 from keras.layers.core import Dense, Dropout, Activation, Flatten
@@ -37,7 +76,6 @@ from keras import activations, initializers, regularizers, constraints
 from keras.engine import InputSpec
 from keras.layers import concatenate
 
-# %%
 class Attention(Layer):
 	def __init__(self,hidden,init='glorot_uniform',activation='linear',W_regularizer=None,b_regularizer=None,W_constraint=None,**kwargs):
 		self.init = initializers.get(init)
@@ -116,8 +154,8 @@ class attention_flatten(Layer): # Based on the source code of Keras flatten
 		x=x[:,:self.keep_dim]
 		return K.batch_flatten(x)
 
-# %%
-def model():
+
+def build_model():
 	print('building model')
 
 	seq_input_shape = (1000,4)
@@ -156,30 +194,57 @@ def model():
 	print (model.summary())
 	return model
 
-# %%
 
-def run_model():
-
+def data_processing():
     x_visdb = np.load('data/x_VISDB_fulldata.npy')
     y_visdb = np.load('data/y_VISDB_fulldata.npy')
 
-	trainx, valx, trainy, valy = train_test_split(x_visdb, y_visdb, test_size = 0.1, random_state = 42)
+    ###split 9:1
+    trainx, valx, trainy, valy = train_test_split(x_visdb, y_visdb, test_size = 0.1, stratify=y_visdb, random_state=42)
 
-    model = model()
+    ###test 1:1
+    neg_val = np.where(valy == 0)
+    pos_val = np.where(valy == 1)
+    xval_positive = valx[pos_val]
+    yval_positive = valy[pos_val]
+    xval_negative = valx[neg_val]
+    yval_negative = valy[neg_val]
+
+    np.random.seed(42) 
+    permutation = np.random.permutation(xval_negative.shape[0])
+    xval_negative_1 = xval_negative[permutation[:xval_positive.shape[0]], :, :]
+    yval_negative_1 = yval_negative[permutation[:xval_positive.shape[0]]]
+
+    valx = np.concatenate((xval_positive, xval_negative_1), axis=0)
+    valy = np.concatenate((yval_positive, yval_negative_1), axis=0)
+
+    valx2, valy2 = shuffle(valx, valy, random_state=42)
+    
+    return trainx, trainy, valx2, valy2
+
+def run_model():
+    trainx, trainy, valx, valy = data_processing()
+
+    model = build_model()
     model.load_weights('model/Final_model.h5')
 
     print('testing')
-    
+
     y_pred = model.predict(valx, verbose = 1)
 
-    auroc = roc_auc_score(valx, y_pred)
+    auroc = roc_auc_score(valy, y_pred)
     aupr = average_precision_score(valy, y_pred)
+
+    np.save('data/y_pred.npy', y_pred)
+    np.save('data/valy.npy', valy)
 
     print('auroc = ', auroc)
     print('aupr = ', aupr)
 
+
 if __name__ == '__main__':
-	model()
+	build_model()
 	run_model()
+
 
 
